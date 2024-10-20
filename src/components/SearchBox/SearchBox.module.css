@@ -1,0 +1,5 @@
+.label {
+  display: grid;
+  max-inline-size: 20rem;
+  margin-block-end: 1em;
+}
