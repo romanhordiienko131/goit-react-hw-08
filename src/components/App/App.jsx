@@ -1,5 +1,6 @@
 import { lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import Modal from "react-modal";
 import Layout from "../Layout/Layout";
 import RestrictedRoute from "../RestrictedRoute/RestrictedRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
@@ -21,6 +22,7 @@ function App() {
   const isRefreshing = useSelector(selectisRefreshing);
 
   useEffect(() => {
+    Modal.setAppElement("#root");
     dispatch(refreshUser());
   }, [dispatch]);
 

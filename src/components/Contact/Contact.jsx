@@ -1,9 +1,17 @@
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import s from "./Contact.module.css";
-import { deleteContact } from "../../redux/contacts/operations";
+import DeleteContactModal from "../DeleteContactModal/DeleteContactModal";
 
 const Contact = ({ id, name, number }) => {
-  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={s.contact}>
@@ -27,14 +35,14 @@ const Contact = ({ id, name, number }) => {
           <p>{number}</p>
         </div>
       </div>
-      <button
-        onClick={() => {
-          dispatch(deleteContact(id));
-        }}
-        type="button"
-      >
+      <button onClick={openModal} type="button">
         Delete
       </button>
+      <DeleteContactModal
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        contactToDelete={id}
+      />
     </div>
   );
 };
