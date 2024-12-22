@@ -1,5 +1,6 @@
+import axios from "../../api/axiosConfig.js";
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
@@ -30,6 +31,18 @@ export const deleteContact = createAsyncThunk(
   async (contactId, thunkAPI) => {
     try {
       const response = await axios.delete(`contacts/${contactId}`);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const patchContact = createAsyncThunk(
+  "contacts/patchCOntact",
+  async ({ contactId, body }, thunkAPI) => {
+    try {
+      const response = await axios.patch(`contacts/${contactId}`, body);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

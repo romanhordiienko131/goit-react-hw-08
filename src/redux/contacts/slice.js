@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, deleteContact } from "./operations";
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  patchContact,
+} from "./operations";
 import toast from "react-hot-toast";
 
 const handlePending = (state) => {
@@ -54,6 +59,20 @@ const slice = createSlice({
         state.items.splice(indexToDelete, 1);
 
         toast.success("Deleted a contact");
+      })
+      .addCase(patchContact.pending, handlePending)
+      .addCase(patchContact.rejected, handleRejected)
+      .addCase(patchContact.fulfilled, (state, action) => {
+        state.error = null;
+        state.loading = false;
+
+        const patchedContactIndex = state.items.findIndex(
+          (contact) => contact.id === action.payload.id
+        );
+
+        state.items[patchedContactIndex] = {
+          ...action.payload,
+        };
       });
   },
 });

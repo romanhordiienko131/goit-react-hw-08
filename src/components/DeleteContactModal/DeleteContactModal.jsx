@@ -2,11 +2,11 @@ import Modal from "react-modal";
 import { useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/contacts/operations";
 
-const DeleteContactModal = ({ isModalOpen, closeModal, contactToDelete }) => {
+const DeleteContactModal = ({ isModalOpen, closeModal, contactId }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteContact(contactToDelete));
+    dispatch(deleteContact(contactId));
     closeModal();
   };
 
